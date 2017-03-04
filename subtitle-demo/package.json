@@ -1,0 +1,17 @@
+{
+  "name": "subtitle-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "subtitle-npm-module": "0.0.2"
+  },
+  "devDependencies": {
+    "browserify": "^14.1.0"
+  }
+}
