@@ -1,5 +1,4 @@
 var https = require('https'),
-    fs = require('fs'),
     cheerio = require('cheerio');
 
 https.get('https://gold.xitu.io/welcome', function(res) {
