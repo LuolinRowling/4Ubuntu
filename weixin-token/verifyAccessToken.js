@@ -1,17 +1,22 @@
 var verify_info = require('./token.json'),
     fs = require('fs'),
-    https = require('https');
+    https = require('https'),
+    resolve_func;
 
 exports.getAccessToken = function() {
-    if (!checkAccessToken()) {
-        console.log("No Access Token.");
-        getAccessToken();
-    } else {
-        return verify_info;
-    }
+    return new Promise(function(resolve, reject) {
+        resolve_func = resolve;
+        if (!isAccessTokenValid(verify_info)) {
+            console.log("No Access Token.");
+            queryAccessToken();
+        } else {
+            resolve_func(verify_info);
+        }
+    })
+
 }
 
-function getAccessToken() {
+function queryAccessToken() {
     var appid = verify_info.appid,
         appsecret = verify_info.appsecret,
         update_time = verify_info.update_time;
@@ -24,18 +29,13 @@ function getAccessToken() {
     }
 
     var req = https.request(options, function(res) {
-        var responseText = "",
-            size = 0;
-        
-        res.setEncoding('utf8');
+        var responseText = "";
 
         res.on('data', function (data) {
             responseText += data;
-            size += data.length;
         });
 
         res.on('end', function () {
-            // console.log(responseText);
 
             if (JSON.parse(responseText)["access_token"] == undefined) {
                 var obj = {
@@ -55,15 +55,8 @@ function getAccessToken() {
 
             verify_info = obj;
 
-            var write_promise = new Promise(function(resolve, reject) {
-                fs.writeFileSync('./token.json', JSON.stringify(obj));
-                resolve("success");
-            });
-
-            write_promise.then(function() {
-                console.log("success")
-                console.log(verify_info)
-                return verify_info;
+            fs.writeFile('./token.json', JSON.stringify(obj), function() {
+                resolve_func(verify_info);
             })
 
         });
@@ -76,16 +69,15 @@ function getAccessToken() {
     req.end();
 }
 
-function checkAccessToken() {
-    // no access token
-    if (verify_info.access_token.length == 0) return false;
-    
-    // check whether access token out of date
-    var update_time = verify_info.update_time;
-    if (Date.now() - update_time >= 7000 * 1000) {
+function isAccessTokenValid(verifyInfo) {
+    if (!verifyInfo) {
         return false;
-    } else {
-        return true;
     }
-
+    if (verifyInfo.access_token.length == 0) {
+        return false;
+    }
+    if (Date.now() - verifyInfo.update_time >= 7000 * 1000) {
+        return false;
+    }
+    return true;
 }

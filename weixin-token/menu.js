@@ -1,15 +1,5 @@
-var VERIFY = require('./verifyAccessToken.js'),
-    VERIFY_INFO,
-    readInfoPromise = new Promise(function(resolve, reject) {
-         VERIFY_INFO = VERIFY.getAccessToken();
-         resolve("Get access token successfully.")
-    });
+var VERIFY = require('./verifyAccessToken.js');
 
-
-readInfoPromise.then(function() {
-    console.log("VERIFY_INFO");
-    console.log(VERIFY_INFO);
-})
-
-
-
+VERIFY.getAccessToken().then(function(VERIFY_INFO) {
+    console.log(VERIFY_INFO)
+});
