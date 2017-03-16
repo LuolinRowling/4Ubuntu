@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" initial-scale="1" user-scalable="false">
+        <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0,user-scalable=false">
         <style type="text/css">
             .bullet-screen {
                 width: 100%;
@@ -23,7 +23,6 @@
             }
             .bullet-content {
                 position: absolute;
-                /*background: #ff00ff;*/
                 top: 2.8rem;
                 bottom: 3.6rem;
                 left: 0;
@@ -65,50 +64,13 @@
         <div class="bullet-screen">
             <div class="bullet-title">弹幕墙</div>
             <div class="bullet-content">
-                <div id="bullet" style="position: absolute; top: 300px">hello</div>
             </div>
         </div>
         <div class="bullet-load">
             <input class="bullet-input" type="text" />
             <span class="submit-btn">发　射</span>
         </div>
-        <script>
 
-            window.onload = function() {
-                var height = document.getElementsByClassName('bullet-content')[0].offsetHeight,
-                    width = document.getElementsByClassName('bullet-content')[0].offsetWidth,
-                    bullet = ["hello", "world"],
-                    counter = 0,
-                    color = ['#000', '#337ab7', '#5cb85c', '#5bc0de', '#f0ad4e', '#d9534f'],
-                    maxDuration = 5000,
-                    minDuration = 2000;
-
-                var screen = document.getElementsByClassName('bullet-content')[0];
-
-                for (var i = 0; i < bullet.length; i++) {
-                    var elem = document.createElement("div");
-
-                    elem.style.color = color[counter % color.length];
-                    elem.style.fontSize = "1.2rem";
-                    elem.style.position = "absolute";
-                    elem.style.top = (height / 10 * Math.random() * ( 9 - 0 )) + "px";
-                    elem.innerHTML = bullet[i];
-
-
-
-                    screen.appendChild(elem);
-                    elem.animate([
-                        { transform: 'translateX(' + width + 'px)'},
-                        { transform: 'translateX(-300px)'}
-                    ], {
-                        duration: Math.random() * (maxDuration - minDuration) + maxDuration,
-                        iterations: Infinity
-                    })
-                    counter++;
-
-                }
-                
-            }
-        </script>
+        <script src="./bundle.js"></script>
     </body>
 </html>
