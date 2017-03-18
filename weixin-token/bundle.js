@@ -7139,54 +7139,86 @@ window.onload = function() {
 
     var CODE = url.split('?')[1].split('&')[0].split('=')[1];
 
-    var options = {
-        host: "api.weixin.qq.com",
-        port: 443,
-        path: "/sns/oauth2/access_token?appid=" + VERIFY_INFO.appid + "&secret=" + VERIFY_INFO.appsecret + "&code=" + CODE + "&grant_type=authorization_code",
-        method: "GET"
-    }
-
-    var req = https.request(options, function(res) {
-        var responseText = "";
-
-        res.on('data', function (data) {
-            responseText += data;
-        });
-
-        res.on('end', function () {
-
-            console.log(responseText);
-
-            // if (JSON.parse(responseText)["access_token"] == undefined) {
-            //     var obj = {
-            //         appid: verify_info.appid,
-            //         appsecret: verify_info.appsecret,
-            //         access_token: "",
-            //         update_time: update_time
-            //     }
-            // } else {
-            //     var obj = {
-            //         appid: verify_info.appid,
-            //         appsecret: verify_info.appsecret,
-            //         access_token: JSON.parse(responseText)["access_token"],
-            //         update_time: Date.now()
-            //     }
-            // }
-
-            // verify_info = obj;
-
-            // fs.writeFile('./token.json', JSON.stringify(obj), function() {
-            //     resolve_func(verify_info);
-            // })
-
-        });
-    })
-
-    req.on("error", function(e) {
-        console.log(e);
+    var header = new Headers({
+        "Content-Type": "application/json"
     });
+    var option = {
+        method: 'GET',
+        headers: header,
+        mode: 'no-cors'
+    };
 
-    req.end();
+
+    var queryUrl = "api.weixin.qq.com/sns/oauth2/access_token?appid=" + VERIFY_INFO.appid + "&secret=" + VERIFY_INFO.appsecret + "&code=" + CODE + "&grant_type=authorization_code";
+
+    // var queryUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + VERIFY_INFO.appid + "&secret=" + VERIFY_INFO.appsecret + "&code=" + "021MuO932zUGF016wU932LZX932MuO9-" + "&grant_type=authorization_code";
+
+    var request = new Request(queryUrl, option);
+
+
+    
+    // console.log(queryUrl);
+
+    fetch(request, option)
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return response;
+            }
+        })
+        .then(function(json) {  
+            console.log(json);
+        });
+
+    // var options = {
+    //     host: "api.weixin.qq.com",
+    //     port: 443,
+    //     path: "/sns/oauth2/access_token?appid=" + VERIFY_INFO.appid + "&secret=" + VERIFY_INFO.appsecret + "&code=" + CODE + "&grant_type=authorization_code",
+    //     method: "GET"
+    // }
+
+    // var req = https.request(options, function(res) {
+    //     var responseText = "";
+
+    //     res.on('data', function (data) {
+    //         responseText += data;
+    //     });
+
+    //     res.on('end', function () {
+
+    //         console.log(responseText);
+
+    //         // if (JSON.parse(responseText)["access_token"] == undefined) {
+    //         //     var obj = {
+    //         //         appid: verify_info.appid,
+    //         //         appsecret: verify_info.appsecret,
+    //         //         access_token: "",
+    //         //         update_time: update_time
+    //         //     }
+    //         // } else {
+    //         //     var obj = {
+    //         //         appid: verify_info.appid,
+    //         //         appsecret: verify_info.appsecret,
+    //         //         access_token: JSON.parse(responseText)["access_token"],
+    //         //         update_time: Date.now()
+    //         //     }
+    //         // }
+
+    //         // verify_info = obj;
+
+    //         // fs.writeFile('./token.json', JSON.stringify(obj), function() {
+    //         //     resolve_func(verify_info);
+    //         // })
+
+    //     });
+    // })
+
+    // req.on("error", function(e) {
+    //     console.log(e);
+    // });
+
+    // req.end();
 
     var height = document.getElementsByClassName('bullet-content')[0].offsetHeight,
         width = document.getElementsByClassName('bullet-content')[0].offsetWidth,
