@@ -23,6 +23,8 @@ app.post('/getUserName', function(req, res) {
 
 	var code = req.body.code;
 
+    var queryUserName;
+
     var options = {
         host: "api.weixin.qq.com",
         port: 443,
@@ -30,44 +32,62 @@ app.post('/getUserName', function(req, res) {
         method: "GET"
     }
     
-    var req = https.request(options, function(res) {
+    var request = https.request(options, function() {
         var responseText = "";
 
-        res.on('data', function (data) {
+        request.on('data', function (data) {
             responseText += data;
         });
 
-        res.on('end', function () {
-            console.log(responseText)
-            // if (JSON.parse(responseText)["access_token"] == undefined) {
-            //     var obj = {
-            //         appid: verify_info.appid,
-            //         appsecret: verify_info.appsecret,
-            //         access_token: "",
-            //         update_time: update_time
-            //     }
-            // } else {
-            //     var obj = {
-            //         appid: verify_info.appid,
-            //         appsecret: verify_info.appsecret,
-            //         access_token: JSON.parse(responseText)["access_token"],
-            //         update_time: Date.now()
-            //     }
-            // }
+        request.on('end', function () {
+            console.log(responseText);
 
-            // verify_info = obj;
-
-            // fs.writeFile('./token.json', JSON.stringify(obj), function() {
-            //     resolve_func(verify_info);
-            // })
-
+            queryUserName = new Promise(function (resolve, reject) {
+                resolve(responseText);
+            });
         });
     })
 
-    req.on("error", function(e) {
+    request.on("error", function(e) {
         console.log(e);
     });
 
-    req.end();
+    request.end();
+
+
+    queryUserName.then(function(info) {
+        var json = JSON.parse(info);
+        console.log(json);
+        
+        var options = {
+            host: "api.weixin.qq.com",
+            port: 443,
+            path: "/sns/userinfo?access_token=" + json["access_token"] + "&openid=" + json["openid"] + "&lang=zh_CN",
+            method: "GET"
+        }
+
+        var request = https.request(options, function() {
+        var responseText = "";
+
+            request.on('data', function (data) {
+                responseText += data;
+            });
+
+            request.on('end', function () {
+                console.log(responseText);
+                var obj = {
+                    nickname: JSON.parse(responseText)["nickname"]
+                }
+                console.log(obj);
+                res.send(obj);
+            });
+        })
+
+        request.on("error", function(e) {
+            console.log(e);
+        });
+
+        request.end();
+    })
 
 });
