@@ -19,7 +19,7 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-app.get('/getUserName', function(req, res) {
+app.post('/getUserName', function(req, res) {
     console.log("/getUserName");
 
 	var code = req.body.code;

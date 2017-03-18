@@ -36,7 +36,7 @@ window.onload = function() {
     }
 
     var httpRequest = new XMLHttpRequest(),
-        url = "https://luolin.me:9999" + "/getUserName"
+        url = "http://luolin.me:9999" + "/getUserName"
 
     if (!httpRequest) {
         cosole.log("Cannot create an XMLHTTP instance")
