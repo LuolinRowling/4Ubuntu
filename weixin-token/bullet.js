@@ -11,34 +11,32 @@ window.onload = function() {
     var CODE = url.split('?')[1].split('&')[0].split('=')[1];
 
     var header = new Headers({
-        "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*"
     });
 
     var option = {
         method: 'GET',
         headers: header,
-        mode: 'no-cors'
+        mode: 'cors'
     };
 
 
-    var queryUrl = "api.weixin.qq.com/sns/oauth2/access_token?appid=" + VERIFY_INFO.appid + "&secret=" + VERIFY_INFO.appsecret + "&code=" + CODE + "&grant_type=authorization_code";
+    var queryUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+ VERIFY_INFO.appid +"&secret="+ VERIFY_INFO.appsecret +"&code="+ CODE +"&grant_type=authorization_code";
 
     // var queryUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + VERIFY_INFO.appid + "&secret=" + VERIFY_INFO.appsecret + "&code=" + "021MuO932zUGF016wU932LZX932MuO9-" + "&grant_type=authorization_code";
 
     var request = new Request(queryUrl, option);
 
-
-    
     console.log(queryUrl);
 
     fetch(request)
         .then(function(response) {
-            if (response.ok) {
-                return response.json();
-            } else {
-                return response;
-            }
+            // if (response.ok) {
+            //     return response.json();
+            // } else {
+            //     return response;
+            // }
+            return response;
         })
         .then(function(json) {  
             console.log(json);
