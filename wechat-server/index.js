@@ -20,7 +20,6 @@ app.all('*', function(req, res, next) {
 });
 
 app.post('/getUserName', function(req, res) {
-
 	var code = req.body.code;
 
     var queryUserName;
