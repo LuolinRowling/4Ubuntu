@@ -22,7 +22,7 @@ app.all('*', function(req, res, next) {
 app.get('/getUserName', function(req, res) {
     console.log("/getUserName");
 
-    console.log("req.body");
+    console.log(req.body);
 	var code = req.body.code;
 
     var queryUserName;
