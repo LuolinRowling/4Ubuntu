@@ -54,8 +54,9 @@ window.onload = function() {
             }
         }
     }
-    httpRequest.setRequestHeader('Content-Type', "application/json");
+
     httpRequest.open('POST', url);
+    httpRequest.setRequestHeader('Content-Type', "application/json");
     httpRequest.send(data);
 
     var height = document.getElementsByClassName('bullet-content')[0].offsetHeight,
