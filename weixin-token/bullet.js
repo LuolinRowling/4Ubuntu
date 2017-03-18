@@ -59,19 +59,11 @@ window.onload = function() {
     // httpRequest.open('POST', url);
     // httpRequest.setRequestHeader('Content-Type', "application/json");
     // httpRequest.send(data);
-
-    var postData = {
-        code: code
-    }
-
     var options = {
         host: "luolin.me",
-        port: "9999",
-        path: "/getUserName",
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        port: 9999,
+        path: "/getUserName?code=" + code,
+        method: "GET"
     }
     
     var req = https.request(options, function(res) {
@@ -90,7 +82,6 @@ window.onload = function() {
         console.log(e);
     });
 
-    req.write(postData);
     req.end();
 
     var height = document.getElementsByClassName('bullet-content')[0].offsetHeight,
