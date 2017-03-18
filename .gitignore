@@ -1,1 +1,5 @@
 weixin-token/token.json
+wechat-server/token.json
+
+weixin-token/node_modules
+wechat-server/node_modules

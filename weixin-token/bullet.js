@@ -1,6 +1,3 @@
-var https = require('https'),
-    VERIFY_INFO = require('./token.json');
-
 window.onload = function() {
 
     // Get code
@@ -8,88 +5,57 @@ window.onload = function() {
 
     if (url.split('?')[1].split('&').length < 2) return;
 
-    var CODE = url.split('?')[1].split('&')[0].split('=')[1];
+    var code = url.split('?')[1].split('&')[0].split('=')[1];
 
-    var header = new Headers({
-        "Access-Control-Allow-Origin": "*"
-    });
-
-    var option = {
-        method: 'GET',
-        headers: header,
-        mode: 'cors'
-    };
-
-
-    var queryUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+ VERIFY_INFO.appid +"&secret="+ VERIFY_INFO.appsecret +"&code="+ CODE +"&grant_type=authorization_code";
-
-    // var queryUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + VERIFY_INFO.appid + "&secret=" + VERIFY_INFO.appsecret + "&code=" + "021MuO932zUGF016wU932LZX932MuO9-" + "&grant_type=authorization_code";
-
-    var request = new Request(queryUrl, option);
-
-    console.log(queryUrl);
-
-    fetch(request)
-        .then(function(response) {
-            // if (response.ok) {
-            //     return response.json();
-            // } else {
-            //     return response;
-            // }
-            return response;
-        })
-        .then(function(json) {  
-            console.log(json);
-        });
-
-    // var options = {
-    //     host: "api.weixin.qq.com",
-    //     port: 443,
-    //     path: "/sns/oauth2/access_token?appid=" + VERIFY_INFO.appid + "&secret=" + VERIFY_INFO.appsecret + "&code=" + CODE + "&grant_type=authorization_code",
-    //     method: "GET"
-    // }
-
-    // var req = https.request(options, function(res) {
-    //     var responseText = "";
-
-    //     res.on('data', function (data) {
-    //         responseText += data;
-    //     });
-
-    //     res.on('end', function () {
-
-    //         console.log(responseText);
-
-    //         // if (JSON.parse(responseText)["access_token"] == undefined) {
-    //         //     var obj = {
-    //         //         appid: verify_info.appid,
-    //         //         appsecret: verify_info.appsecret,
-    //         //         access_token: "",
-    //         //         update_time: update_time
-    //         //     }
-    //         // } else {
-    //         //     var obj = {
-    //         //         appid: verify_info.appid,
-    //         //         appsecret: verify_info.appsecret,
-    //         //         access_token: JSON.parse(responseText)["access_token"],
-    //         //         update_time: Date.now()
-    //         //     }
-    //         // }
-
-    //         // verify_info = obj;
-
-    //         // fs.writeFile('./token.json', JSON.stringify(obj), function() {
-    //         //     resolve_func(verify_info);
-    //         // })
-
-    //     });
-    // })
-
-    // req.on("error", function(e) {
-    //     console.log(e);
+    // var header = new Headers({
+    //     "Access-Control-Allow-Origin": "*"
     // });
 
-    // req.end();
+    // var option = {
+    //     method: 'GET',
+    //     headers: header,
+    //     mode: 'no-cors'
+    // };
+
+    // var queryUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+ VERIFY_INFO.appid +"&secret="+ VERIFY_INFO.appsecret +"&code="+ CODE +"&grant_type=authorization_code";
+
+    // var request = new Request(queryUrl, option);
+
+    // console.log(queryUrl);
+
+    // fetch(request)
+    //     .then(function(response) {
+    //         return response;
+    //     })
+    //     .then(function(json) {  
+    //         console.log(json);
+    //     });
+
+    var data = {
+        code: code
+    }
+
+    var httpRequest = new XMLHttpRequest(),
+        url = "https://luolin.me" + "/getUserName"
+
+    if (!httpRequest) {
+        cosole.log("Cannot create an XMLHTTP instance")
+        return false;
+    }
+
+    httpRequest.onreadystatechange = function() {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (httpRequest.status === 200) {
+                var response = JSON.parse(httpRequest.responseText);
+                console.log(response);
+            } else {
+                alert('There was a problem with the request.');
+            }
+        }
+    }
+    httpRequest.setRequestHeader('Content-Type', "application/json");
+    httpRequest.open('POST', url);
+    httpRequest.send(data);
 
     var height = document.getElementsByClassName('bullet-content')[0].offsetHeight,
         width = document.getElementsByClassName('bullet-content')[0].offsetWidth,
