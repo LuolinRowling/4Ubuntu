@@ -58,7 +58,7 @@ app.post('/getUserName', function(req, res) {
     queryUserName.then(function(info) {
         var json = JSON.parse(info);
         console.log(json);
-        
+
         var options = {
             host: "api.weixin.qq.com",
             port: 443,
@@ -91,3 +91,7 @@ app.post('/getUserName', function(req, res) {
     })
 
 });
+
+
+app.listen(8888);
+console.log('Listening on port 8888...');
