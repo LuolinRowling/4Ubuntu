@@ -1,3 +1,5 @@
+var https = require('https');
+
 window.onload = function() {
 
     // Get code
@@ -31,32 +33,65 @@ window.onload = function() {
     //         console.log(json);
     //     });
 
-    var data = {
+    // var data = {
+    //     code: code
+    // }
+
+    // var httpRequest = new XMLHttpRequest(),
+    //     url = "https://luolin.me:9999" + "/getUserName"
+
+    // if (!httpRequest) {
+    //     cosole.log("Cannot create an XMLHTTP instance")
+    //     return false;
+    // }
+
+    // httpRequest.onreadystatechange = function() {
+    //     if (httpRequest.readyState === XMLHttpRequest.DONE) {
+    //         if (httpRequest.status === 200) {
+    //             var response = JSON.parse(httpRequest.responseText);
+    //             console.log(response);
+    //         } else {
+    //             alert('There was a problem with the request.');
+    //         }
+    //     }
+    // }
+
+    // httpRequest.open('POST', url);
+    // httpRequest.setRequestHeader('Content-Type', "application/json");
+    // httpRequest.send(data);
+
+    var postData = {
         code: code
     }
 
-    var httpRequest = new XMLHttpRequest(),
-        url = "http://luolin.me:9999" + "/getUserName"
-
-    if (!httpRequest) {
-        cosole.log("Cannot create an XMLHTTP instance")
-        return false;
-    }
-
-    httpRequest.onreadystatechange = function() {
-        if (httpRequest.readyState === XMLHttpRequest.DONE) {
-            if (httpRequest.status === 200) {
-                var response = JSON.parse(httpRequest.responseText);
-                console.log(response);
-            } else {
-                alert('There was a problem with the request.');
-            }
+    var options = {
+        host: "luolin.me",
+        port: "9999",
+        path: "/getUserName",
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
         }
     }
+    
+    var req = https.request(options, function(res) {
+        var responseText = "";
 
-    httpRequest.open('POST', url);
-    httpRequest.setRequestHeader('Content-Type', "application/json");
-    httpRequest.send(data);
+        res.on('data', function (data) {
+            responseText += data;
+        });
+
+        res.on('end', function () {
+            console.log(responseText);
+        });
+    })
+
+    req.on("error", function(e) {
+        console.log(e);
+    });
+
+    req.write(postData);
+    req.end();
 
     var height = document.getElementsByClassName('bullet-content')[0].offsetHeight,
         width = document.getElementsByClassName('bullet-content')[0].offsetWidth,
