@@ -14,6 +14,7 @@ window.onload = function() {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*"
     });
+
     var option = {
         method: 'GET',
         headers: header,
@@ -29,9 +30,9 @@ window.onload = function() {
 
 
     
-    // console.log(queryUrl);
+    console.log(queryUrl);
 
-    fetch(request, option)
+    fetch(request)
         .then(function(response) {
             if (response.ok) {
                 return response.json();
