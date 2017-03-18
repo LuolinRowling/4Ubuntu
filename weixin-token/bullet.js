@@ -11,7 +11,8 @@ window.onload = function() {
     var CODE = url.split('?')[1].split('&')[0].split('=')[1];
 
     var header = new Headers({
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
     });
     var option = {
         method: 'GET',
