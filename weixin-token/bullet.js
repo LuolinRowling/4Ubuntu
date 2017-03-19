@@ -89,13 +89,13 @@ window.onload = function() {
         screen.appendChild(elem);
         elem.animate([
             { "transform": 'translateX(' + width + 'px)'},
-            { "transform": 'translateX(-300px)'},
-            { "-webkit-transform": 'translateX(' + width + 'px)'},
-            { "-webkit-transform": 'translateX(-300px)'},
-            { "-ms-transform": 'translateX(' + width + 'px)'},
-            { "-ms-transform": 'translateX(-300px)'},
-            { "-moz-transform": 'translateX(' + width + 'px)'},
-            { "-moz-transform": 'translateX(-300px)'}     
+            { "transform": 'translateX(-300px)'}
+            // { "-webkit-transform": 'translateX(' + width + 'px)'},
+            // { "-webkit-transform": 'translateX(-300px)'},
+            // { "-ms-transform": 'translateX(' + width + 'px)'},
+            // { "-ms-transform": 'translateX(-300px)'},
+            // { "-moz-transform": 'translateX(' + width + 'px)'},
+            // { "-moz-transform": 'translateX(-300px)'}     
 
         ], {
             duration: Math.random() * (maxDuration - minDuration) + maxDuration,
