@@ -32,8 +32,7 @@ window.onload = function() {
                 return response.json();
             } else {
                 return response;
-            }
-            
+            }  
         })
         .then(function(json) {  
             console.log(json);
@@ -43,7 +42,7 @@ window.onload = function() {
 
     var height = document.getElementsByClassName('bullet-content')[0].offsetHeight,
         width = document.getElementsByClassName('bullet-content')[0].offsetWidth,
-        bullet = ["hello", "world", "hello", "world", "hello", "world", "hello", "world"],
+        bullet = ["Hello, World!"],
         counter = 0,
         color = ['#000', '#337ab7', '#5cb85c', '#5bc0de', '#f0ad4e', '#d9534f'],
         maxDuration = 5000,
@@ -79,7 +78,13 @@ window.onload = function() {
     // Add click listener on submit button
     document.getElementsByClassName('submit-btn')[0].addEventListener("click", function(e) {
         var bulletContent = document.getElementsByClassName('bullet-input')[0].value;
-        pushBulletContent(bulletContent);
+
+        if (localStorage.getItem("nickname") == null) {
+            pushBulletContent(bulletContent);
+        } else {
+            pushBulletContent(localStorage.getItem("nickname") + ": " + bulletContent);
+        }
+        
         document.getElementsByClassName('bullet-input')[0].value = "";
     }, false);
 
