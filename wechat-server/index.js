@@ -44,37 +44,37 @@ app.get('/wechat/getUserName', function(req, res) {
         request.on('end', function () {
             console.log(responseText);
 
-            var json = JSON.parse(responseText);
+            // var json = JSON.parse(responseText);
 
-            var options = {
-                host: "api.weixin.qq.com",
-                port: 443,
-                path: "/sns/userinfo?access_token=" + json["access_token"] + "&openid=" + json["openid"] + "&lang=zh_CN",
-                method: "GET"
-            }
+            // var options = {
+            //     host: "api.weixin.qq.com",
+            //     port: 443,
+            //     path: "/sns/userinfo?access_token=" + json["access_token"] + "&openid=" + json["openid"] + "&lang=zh_CN",
+            //     method: "GET"
+            // }
 
-            var request = https.request(options, function() {
-            var responseText = "";
+            // var request = https.request(options, function() {
+            // var responseText = "";
 
-                request.on('data', function (data) {
-                    responseText += data;
-                });
+            //     request.on('data', function (data) {
+            //         responseText += data;
+            //     });
 
-                request.on('end', function () {
-                    console.log(responseText);
-                    var obj = {
-                        nickname: JSON.parse(responseText)["nickname"]
-                    }
-                    console.log(obj);
-                    res.send(obj);
-                });
-            })
+            //     request.on('end', function () {
+            //         console.log(responseText);
+            //         var obj = {
+            //             nickname: JSON.parse(responseText)["nickname"]
+            //         }
+            //         console.log(obj);
+            //         res.send(obj);
+            //     });
+            // })
 
-            request.on("error", function(e) {
-                console.log(e);
-            });
+            // request.on("error", function(e) {
+            //     console.log(e);
+            // });
 
-            request.end();
+            // request.end();
         });
     })
 
