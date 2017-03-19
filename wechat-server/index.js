@@ -41,6 +41,7 @@ app.get('/wechat/getUserName', function(req, res) {
 
         request.on('data', function (data) {
             responseText += data;
+            console.log('has data')
         });
 
         request.on('end', function () {
