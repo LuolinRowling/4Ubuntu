@@ -7140,34 +7140,57 @@ window.onload = function() {
 
     var code = url.split('?')[1].split('&')[0].split('=')[1];
 
-    var header = new Headers({
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json;charset=utf-8"
-    });
+    // var header = new Headers({
+    //     "Access-Control-Allow-Origin": "*",
+    //     "Content-Type": "application/json;charset=utf-8"
+    // });
 
-    var option = {
-        method: 'GET',
-        headers: header,
-        mode: 'no-cors'
-    };
+    // var option = {
+    //     method: 'GET',
+    //     headers: header,
+    //     mode: 'no-cors'
+    // };
 
-    var queryUrl = "/wechat/getUserName?code=" + code;
+    // var queryUrl = "/wechat/getUserName?code=" + code;
 
-    var request = new Request(queryUrl, option);
+    // var request = new Request(queryUrl, option);
 
-    fetch(request)
-        .then(function(response) {
-            if (response.ok) {
-                return response.json();
+    // fetch(request)
+    //     .then(function(response) {
+    //         if (response.ok) {
+    //             return response.json();
+    //         } else {
+    //             return response;
+    //         }  
+    //     })
+    //     .then(function(json) {  
+    //         localStorage.setItem("nickname", json.nickname);
+    //     });
+
+
+    var httpRequest = new XMLHttpRequest(),
+        url = "/wechat/getUserName?code=" + code;
+
+    if (!httpRequest) {
+        cosole.log("Cannot create an XMLHTTP instance")
+        return false;
+    }
+
+    httpRequest.onreadystatechange = function() {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (httpRequest.status === 200) {
+                var response = JSON.parse(httpRequest.responseText);
+                console.log(response.nickname);
+                localStorage.setItem("nickname", json.nickname);
             } else {
-                return response;
-            }  
-        })
-        .then(function(json) {  
-            console.log(json);
-            console.log(json.nickname);
-            localStorage.setItem("nickname", json.nickname);
-        });
+                alert('There was a problem with the request.');
+            }
+        }
+    }
+
+    httpRequest.open('GET', url);
+    httpRequest.setRequestHeader('Content-Type', "application/json");
+    httpRequest.send();
 
     var height = document.getElementsByClassName('bullet-content')[0].offsetHeight,
         width = document.getElementsByClassName('bullet-content')[0].offsetWidth,
@@ -7208,6 +7231,8 @@ window.onload = function() {
     document.getElementsByClassName('submit-btn')[0].addEventListener("click", function(e) {
         var bulletContent = document.getElementsByClassName('bullet-input')[0].value;
 
+        if (bulletContent.length == 0) return;
+
         if (localStorage.getItem("nickname") == null) {
             pushBulletContent(bulletContent);
         } else {
@@ -7222,6 +7247,8 @@ window.onload = function() {
         if (e.which == 13) {
             var bulletContent = document.getElementsByClassName('bullet-input')[0].value;
         
+            if (bulletContent.length == 0) return;
+
             if (localStorage.getItem("nickname") == null) {
                 pushBulletContent(bulletContent);
             } else {
