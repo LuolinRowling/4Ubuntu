@@ -36,18 +36,18 @@ app.get('/wechat/getUserName', function(req, res) {
     
     console.log(options.path);
 
-    var request = https.request(options, function() {
+    var openidReq = https.request(options, function() {
         var responseText = "";
 
-        request.on('data', function (data) {
+        openidReq.on('data', function (data) {
             responseText += data;
             console.log('has data')
         });
 
-        request.on('end', function () {
+        openidReq.on('end', function () {
             console.log("end");
             console.log(responseText);
-
+            res.send({nickname: "hello"})
             // var json = JSON.parse(responseText);
 
             // var options = {
@@ -82,11 +82,11 @@ app.get('/wechat/getUserName', function(req, res) {
         });
     })
 
-    request.on("error", function(e) {
+    openidReq.on('error', function(e) {
         console.log(e);
     });
 
-    request.end();
+    openidReq.end();
 });
 
 
