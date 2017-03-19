@@ -51,8 +51,7 @@ window.onload = function() {
         if (httpRequest.readyState === XMLHttpRequest.DONE) {
             if (httpRequest.status === 200) {
                 var response = JSON.parse(httpRequest.responseText);
-                console.log(response.nickname);
-                localStorage.setItem("nickname", json.nickname);
+                localStorage.setItem("nickname", response.nickname);
             } else {
                 alert('There was a problem with the request.');
             }
