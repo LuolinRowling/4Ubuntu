@@ -39,7 +39,8 @@ app.get('/wechat/getUserName', function(req, res) {
             console.log(responseText);  
 
             console.log(JSON.stringify(responseText).access_token);
-            console.log(JSON.stringify(responseText));
+            console.log(JSON.parse(responseText).access_token);
+            console.log(eval("(" + responseText + ")").access_token);
             console.log(typeof(JSON.stringify(responseText)));
             // var access_token = responseText["access_token"],
             //     openid = JSON.parse(responseText).openid,
