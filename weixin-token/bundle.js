@@ -7140,34 +7140,6 @@ window.onload = function() {
 
     var code = url.split('?')[1].split('&')[0].split('=')[1];
 
-    // var header = new Headers({
-    //     "Access-Control-Allow-Origin": "*",
-    //     "Content-Type": "application/json;charset=utf-8"
-    // });
-
-    // var option = {
-    //     method: 'GET',
-    //     headers: header,
-    //     mode: 'no-cors'
-    // };
-
-    // var queryUrl = "/wechat/getUserName?code=" + code;
-
-    // var request = new Request(queryUrl, option);
-
-    // fetch(request)
-    //     .then(function(response) {
-    //         if (response.ok) {
-    //             return response.json();
-    //         } else {
-    //             return response;
-    //         }  
-    //     })
-    //     .then(function(json) {  
-    //         localStorage.setItem("nickname", json.nickname);
-    //     });
-
-
     var httpRequest = new XMLHttpRequest(),
         url = "/wechat/getUserName?code=" + code;
 
@@ -7217,25 +7189,45 @@ window.onload = function() {
 
         screen.appendChild(elem);
         
-        var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+        // var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 
-        if (isIOS) {
-            elem.animate([
-                { "-webkit-transform": 'translateX(' + width + 'px)'},
-                { "-webkit-transform": 'translateX(-300px)'}  
-            ], {
-                duration: Math.random() * (maxDuration - minDuration) + maxDuration,
-                iterations: Infinity
-            })
-        } else {
-            elem.animate([
-                { "transform": 'translateX(' + width + 'px)'},
-                { "transform": 'translateX(-300px)'}
-            ], {
-                duration: Math.random() * (maxDuration - minDuration) + maxDuration,
-                iterations: Infinity
-            })
-        }
+        // if (isIOS) {
+        //     elem.animate([
+        //         { "-webkit-transform": 'translateX(' + width + 'px)'},
+        //         { "-webkit-transform": 'translateX(-300px)'}  
+        //     ], {
+        //         duration: Math.random() * (maxDuration - minDuration) + maxDuration,
+        //         iterations: Infinity
+        //     })
+        // } else {
+        //     elem.animate([
+        //         { "transform": 'translateX(' + width + 'px)'},
+        //         { "transform": 'translateX(-300px)'}
+        //     ], {
+        //         duration: Math.random() * (maxDuration - minDuration) + maxDuration,
+        //         iterations: Infinity
+        //     })
+        // }
+
+        elem.animate([
+            { 
+                "-webkit-transform": "translateX(' + width + 'px)",
+                "-ms-transform": "translateX(' + width + 'px)",
+                "transform": "translateX(' + width + 'px)",
+                "-moz-transform": "translateX(' + width + 'px)",
+                "-o-transform": "translateX(' + width + 'px)"
+            },
+            { 
+                "-webkit-transform": "translateX(-300px)",
+                "-ms-transform": "translateX(-300px)",
+                "transform": "translateX(-300px)",
+                "-moz-transform": "translateX(-300px)",
+                "-o-transform": "translateX(-300px)"
+            }  
+        ], {
+            duration: Math.random() * (maxDuration - minDuration) + maxDuration,
+            iterations: Infinity
+        })
 
         counter++;
     }
