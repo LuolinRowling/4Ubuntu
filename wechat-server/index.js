@@ -38,23 +38,23 @@ app.get('/wechat/getUserName', function(req, res) {
         openidRes.on('end', () => {
             console.log(responseText);  
 
-            var access_token = JSON.parse(responseText).access_token,
-                openid = JSON.parse(responseText).openid,
-                responseText = "";
+            // var access_token = responseText["access_token"],
+            //     openid = JSON.parse(responseText).openid,
+            //     responseText = "";
 
-            https.get("https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid + "&lang=zh_CN", function(nicknameRes) {
-                nicknameRes.on('data', (d) => {
-                    responseText += d;
-                })
+            // https.get("https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid + "&lang=zh_CN", function(nicknameRes) {
+            //     nicknameRes.on('data', (d) => {
+            //         responseText += d;
+            //     })
 
-                nicknameRes.on('end', () => {
-                    var obj = {
-                        nickname: JSON.parse(responseText).nickname
-                    }
-                    console.log(obj);
-                    res.send(obj);
-                })
-            })
+            //     nicknameRes.on('end', () => {
+            //         var obj = {
+            //             nickname: JSON.parse(responseText).nickname
+            //         }
+            //         console.log(obj);
+            //         res.send(obj);
+            //     })
+            // })
         });
     }).on('error', (e) => {
         console.error(e);
