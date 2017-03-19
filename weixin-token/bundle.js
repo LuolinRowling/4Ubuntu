@@ -7216,20 +7216,27 @@ window.onload = function() {
         elem.innerHTML = bulletContent;
 
         screen.appendChild(elem);
-        elem.animate([
-            { "transform": 'translateX(' + width + 'px)'},
-            { "transform": 'translateX(-300px)'}
-            // { "-webkit-transform": 'translateX(' + width + 'px)'},
-            // { "-webkit-transform": 'translateX(-300px)'},
-            // { "-ms-transform": 'translateX(' + width + 'px)'},
-            // { "-ms-transform": 'translateX(-300px)'},
-            // { "-moz-transform": 'translateX(' + width + 'px)'},
-            // { "-moz-transform": 'translateX(-300px)'}     
+        
+        var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 
-        ], {
-            duration: Math.random() * (maxDuration - minDuration) + maxDuration,
-            iterations: Infinity
-        })
+        if (isIOS) {
+            elem.animate([
+                { "-webkit-transform": 'translateX(' + width + 'px)'},
+                { "-webkit-transform": 'translateX(-300px)'}  
+            ], {
+                duration: Math.random() * (maxDuration - minDuration) + maxDuration,
+                iterations: Infinity
+            })
+        } else {
+            elem.animate([
+                { "transform": 'translateX(' + width + 'px)'},
+                { "transform": 'translateX(-300px)'}
+            ], {
+                duration: Math.random() * (maxDuration - minDuration) + maxDuration,
+                iterations: Infinity
+            })
+        }
+
         counter++;
     }
 
