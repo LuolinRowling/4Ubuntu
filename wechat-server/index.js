@@ -27,66 +27,82 @@ app.get('/wechat/getUserName', function(req, res) {
 
     console.log("code: " + code);
 
-    var options = {
-        host: "api.weixin.qq.com",
-        port: 443,
-        path: "/sns/oauth2/access_token?appid=" + INFO.appid + "&secret=" + INFO.appsecret + "&code=" + code + "&grant_type=authorization_code",
-        method: "GET"
-    }
-    
-    console.log(options.path);
+    var responseText = "";
 
-    var openidReq = https.request(options, function() {
-        var responseText = "";
+    https.get("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + INFO.appid + "&secret=" + INFO.appsecret + "&code=" + code + "&grant_type=authorization_code", (response) => {
+        console.log('statusCode:', response.statusCode);
+        console.log('headers:', response.headers);
 
-        openidReq.on('data', function (data) {
-            responseText += data;
-            console.log('has data')
+        response.on('data', (d) => {
+            responseText += d;
         });
 
-        openidReq.on('end', function () {
-            console.log("end");
-            console.log(responseText);
-            res.send({nickname: "hello"})
-            // var json = JSON.parse(responseText);
-
-            // var options = {
-            //     host: "api.weixin.qq.com",
-            //     port: 443,
-            //     path: "/sns/userinfo?access_token=" + json["access_token"] + "&openid=" + json["openid"] + "&lang=zh_CN",
-            //     method: "GET"
-            // }
-
-            // var request = https.request(options, function() {
-            // var responseText = "";
-
-            //     request.on('data', function (data) {
-            //         responseText += data;
-            //     });
-
-            //     request.on('end', function () {
-            //         console.log(responseText);
-            //         var obj = {
-            //             nickname: JSON.parse(responseText)["nickname"]
-            //         }
-            //         console.log(obj);
-            //         res.send(obj);
-            //     });
-            // })
-
-            // request.on("error", function(e) {
-            //     console.log(e);
-            // });
-
-            // request.end();
+        response.on('end', () => {
+            console.log(responseText);  
         });
-    })
-
-    openidReq.on('error', function(e) {
-        console.log(e);
+    }).on('error', (e) => {
+        console.error(e);
     });
+    // var options = {
+    //     host: "api.weixin.qq.com",
+    //     port: 443,
+    //     path: "/sns/oauth2/access_token?appid=" + INFO.appid + "&secret=" + INFO.appsecret + "&code=" + code + "&grant_type=authorization_code",
+    //     method: "GET"
+    // }
+    
+    // console.log(options.path);
 
-    openidReq.end();
+    // var openidReq = https.request(options, function() {
+    //     var responseText = "";
+
+    //     openidReq.on('data', function (data) {
+    //         responseText += data;
+    //         console.log('has data')
+    //     });
+
+    //     openidReq.on('end', function () {
+    //         console.log("end");
+    //         console.log(responseText);
+    //         res.send({nickname: "hello"})
+    //         // var json = JSON.parse(responseText);
+
+    //         // var options = {
+    //         //     host: "api.weixin.qq.com",
+    //         //     port: 443,
+    //         //     path: "/sns/userinfo?access_token=" + json["access_token"] + "&openid=" + json["openid"] + "&lang=zh_CN",
+    //         //     method: "GET"
+    //         // }
+
+    //         // var request = https.request(options, function() {
+    //         // var responseText = "";
+
+    //         //     request.on('data', function (data) {
+    //         //         responseText += data;
+    //         //     });
+
+    //         //     request.on('end', function () {
+    //         //         console.log(responseText);
+    //         //         var obj = {
+    //         //             nickname: JSON.parse(responseText)["nickname"]
+    //         //         }
+    //         //         console.log(obj);
+    //         //         res.send(obj);
+    //         //     });
+    //         // })
+
+    //         // request.on("error", function(e) {
+    //         //     console.log(e);
+    //         // });
+
+    //         // request.end();
+    //     });
+    // })
+
+    // openidReq.on('error', function(e) {
+    //     console.log(e);
+    // });
+
+    // openidReq.end();
 });
 
 
