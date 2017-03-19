@@ -7182,7 +7182,7 @@ window.onload = function() {
                 var response = JSON.parse(httpRequest.responseText);
                 localStorage.setItem("nickname", response.nickname);
             } else {
-                alert('There was a problem with the request.');
+                // alert('There was a problem with the request.');
             }
         }
     }
