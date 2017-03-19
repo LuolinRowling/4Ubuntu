@@ -22,8 +22,8 @@ app.all('*', function(req, res, next) {
 app.get('/wechat/getUserName', function(req, res) {
     console.log("/getUserName");
 
-    console.log(req.body);
-	var code = req.body.code;
+    console.log(req.query);
+	var code = req.query.code;
 
     var queryUserName;
 
