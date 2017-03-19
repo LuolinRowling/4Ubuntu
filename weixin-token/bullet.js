@@ -5,12 +5,15 @@ window.onload = function() {
     // Get code
     var url = window.location.search;
 
+    localStorage.removeItem("nickname");
+
     if (url.split('?')[1].split('&').length < 2) return;
 
     var code = url.split('?')[1].split('&')[0].split('=')[1];
 
     var header = new Headers({
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json;charset=utf-8"
     });
 
     var option = {
@@ -19,73 +22,24 @@ window.onload = function() {
         mode: 'no-cors'
     };
 
-    // var queryUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+ VERIFY_INFO.appid +"&secret="+ VERIFY_INFO.appsecret +"&code="+ CODE +"&grant_type=authorization_code";
-
     var queryUrl = "/wechat/getUserName?code=" + code;
 
     var request = new Request(queryUrl, option);
 
-    console.log(queryUrl);
-
     fetch(request)
         .then(function(response) {
-            return response;
+            if (response.ok) {
+                return response.json();
+            } else {
+                return response;
+            }
+            
         })
         .then(function(json) {  
             console.log(json);
+            console.log(json.nickname);
+            localStorage.setItem("nickname", json.nickname);
         });
-
-    // var data = {
-    //     code: code
-    // }
-
-    // var httpRequest = new XMLHttpRequest(),
-    //     url = "https://luolin.me:9999" + "/getUserName"
-
-    // if (!httpRequest) {
-    //     cosole.log("Cannot create an XMLHTTP instance")
-    //     return false;
-    // }
-
-    // httpRequest.onreadystatechange = function() {
-    //     if (httpRequest.readyState === XMLHttpRequest.DONE) {
-    //         if (httpRequest.status === 200) {
-    //             var response = JSON.parse(httpRequest.responseText);
-    //             console.log(response);
-    //         } else {
-    //             alert('There was a problem with the request.');
-    //         }
-    //     }
-    // }
-
-    // httpRequest.open('POST', url);
-    // httpRequest.setRequestHeader('Content-Type', "application/json");
-    // httpRequest.send(data);
-
-    // var options = {
-    //     host: "luolin.me",
-    //     port: 9999,
-    //     path: "/getUserName?code=" + code,
-    //     method: "GET"
-    // }
-    
-    // var req = https.request(options, function(res) {
-    //     var responseText = "";
-
-    //     res.on('data', function (data) {
-    //         responseText += data;
-    //     });
-
-    //     res.on('end', function () {
-    //         console.log(responseText);
-    //     });
-    // })
-
-    // req.on("error", function(e) {
-    //     console.log(e);
-    // });
-
-    // req.end();
 
     var height = document.getElementsByClassName('bullet-content')[0].offsetHeight,
         width = document.getElementsByClassName('bullet-content')[0].offsetWidth,

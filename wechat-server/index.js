@@ -42,10 +42,6 @@ app.get('/wechat/getUserName', function(req, res) {
                 openid = JSON.parse(responseText).openid,
                 resText = "";
 
-            // var access_token = responseText["access_token"],
-            //     openid = JSON.parse(responseText).openid,
-            //     responseText = "";
-
             https.get("https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid + "&lang=zh_CN", function(nicknameRes) {
                 nicknameRes.on('data', (d) => {
                     resText += d;
@@ -63,69 +59,11 @@ app.get('/wechat/getUserName', function(req, res) {
                 console.error(e);
             });
         });
+        
     }).on('error', (e) => {
         console.error(e);
     });
-    // var options = {
-    //     host: "api.weixin.qq.com",
-    //     port: 443,
-    //     path: "/sns/oauth2/access_token?appid=" + INFO.appid + "&secret=" + INFO.appsecret + "&code=" + code + "&grant_type=authorization_code",
-    //     method: "GET"
-    // }
-    
-    // console.log(options.path);
 
-    // var openidReq = https.request(options, function() {
-    //     var responseText = "";
-
-    //     openidReq.on('data', function (data) {
-    //         responseText += data;
-    //         console.log('has data')
-    //     });
-
-    //     openidReq.on('end', function () {
-    //         console.log("end");
-    //         console.log(responseText);
-    //         res.send({nickname: "hello"})
-    //         // var json = JSON.parse(responseText);
-
-    //         // var options = {
-    //         //     host: "api.weixin.qq.com",
-    //         //     port: 443,
-    //         //     path: "/sns/userinfo?access_token=" + json["access_token"] + "&openid=" + json["openid"] + "&lang=zh_CN",
-    //         //     method: "GET"
-    //         // }
-
-    //         // var request = https.request(options, function() {
-    //         // var responseText = "";
-
-    //         //     request.on('data', function (data) {
-    //         //         responseText += data;
-    //         //     });
-
-    //         //     request.on('end', function () {
-    //         //         console.log(responseText);
-    //         //         var obj = {
-    //         //             nickname: JSON.parse(responseText)["nickname"]
-    //         //         }
-    //         //         console.log(obj);
-    //         //         res.send(obj);
-    //         //     });
-    //         // })
-
-    //         // request.on("error", function(e) {
-    //         //     console.log(e);
-    //         // });
-
-    //         // request.end();
-    //     });
-    // })
-
-    // openidReq.on('error', function(e) {
-    //     console.log(e);
-    // });
-
-    // openidReq.end();
 });
 
 
