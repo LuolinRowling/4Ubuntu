@@ -34,6 +34,8 @@ app.get('/wechat/getUserName', function(req, res) {
         method: "GET"
     }
     
+    console.log(options.path);
+
     var request = https.request(options, function() {
         var responseText = "";
 
@@ -42,6 +44,7 @@ app.get('/wechat/getUserName', function(req, res) {
         });
 
         request.on('end', function () {
+            console.log("end");
             console.log(responseText);
 
             // var json = JSON.parse(responseText);
