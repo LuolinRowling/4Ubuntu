@@ -3,6 +3,7 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     https = require('https'),
+    URL = require('url'),
     INFO = require('./token.json');
 
 var app = express();
@@ -22,10 +23,9 @@ app.all('*', function(req, res, next) {
 app.get('/wechat/getUserName', function(req, res) {
     console.log("/getUserName");
 
-    console.log(req.query);
-	var code = req.query.code;
+	var code = url.parse(req.url, true).query.code;
 
-    var queryUserName;
+    console.log("code: " + code);
 
     var options = {
         host: "api.weixin.qq.com",
