@@ -92,7 +92,13 @@ window.onload = function() {
     document.getElementsByClassName('bullet-input')[0].addEventListener("keypress", function(e) {
         if (e.which == 13) {
             var bulletContent = document.getElementsByClassName('bullet-input')[0].value;
-            pushBulletContent(bulletContent);
+        
+            if (localStorage.getItem("nickname") == null) {
+                pushBulletContent(bulletContent);
+            } else {
+                pushBulletContent(localStorage.getItem("nickname") + ": " + bulletContent);
+            }
+
             document.getElementsByClassName('bullet-input')[0].value = "";
         }
     }, false);
