@@ -38,27 +38,30 @@ app.get('/wechat/getUserName', function(req, res) {
         openidRes.on('end', () => {
             console.log(responseText);  
 
-            console.log(JSON.stringify(responseText).access_token);
-            console.log(JSON.parse(responseText).access_token);
-            console.log(eval("(" + responseText + ")").access_token);
-            console.log(typeof(JSON.stringify(responseText)));
+            var access_token = JSON.parse(responseText).access_token,
+                openid = JSON.parse(responseText).openid,
+                resText = "";
+
             // var access_token = responseText["access_token"],
             //     openid = JSON.parse(responseText).openid,
             //     responseText = "";
 
-            // https.get("https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid + "&lang=zh_CN", function(nicknameRes) {
-            //     nicknameRes.on('data', (d) => {
-            //         responseText += d;
-            //     })
+            https.get("https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid + "&lang=zh_CN", function(nicknameRes) {
+                nicknameRes.on('data', (d) => {
+                    resText += d;
+                })
 
-            //     nicknameRes.on('end', () => {
-            //         var obj = {
-            //             nickname: JSON.parse(responseText).nickname
-            //         }
-            //         console.log(obj);
-            //         res.send(obj);
-            //     })
-            // })
+                nicknameRes.on('end', () => {
+                    console.log(resText)
+                    var obj = {
+                        nickname: JSON.parse(resText).nickname
+                    }
+                    console.log(obj);
+                    res.send(obj);
+                })
+            }).on('error', (e) => {
+                console.error(e);
+            });
         });
     }).on('error', (e) => {
         console.error(e);
