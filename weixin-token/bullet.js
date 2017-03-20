@@ -60,17 +60,26 @@ window.onload = function() {
        
         var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 
-        alert(isIOS);
-        
+        // alert(isIOS);
+
         if (isIOS) {
-            elem.style.left = (width * (-1)) + "px";
-            elem.animate([
-                { "-webkit-transform": 'translateX(' + width + 'px)'},
-                { "-webkit-transform": 'translateX(-300px)'}  
-            ], {
-                duration: Math.random() * (maxDuration - minDuration) + maxDuration,
-                iterations: Infinity
-            })
+            // elem.style.left = (width * (-1)) + "px";
+            // elem.animate([
+            //     { "-webkit-transform": 'translateX(' + width + 'px)'},
+            //     { "-webkit-transform": 'translateX(-300px)'}  
+            // ], {
+            //     duration: Math.random() * (maxDuration - minDuration) + maxDuration,
+            //     iterations: Infinity
+            // })
+
+            var duration = Math.random() * (maxDuration - minDuration) + maxDuration,
+                rightValue = width;
+
+            setInterval(function() {
+                elem.style.right = rightValue + "px";
+                rightValue--;
+                if (rightValue <= -300) rightValue = width;
+            }, width / duration)
         } else {
             elem.animate([
                 { "transform": 'translateX(' + width + 'px)'},
