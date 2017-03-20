@@ -62,6 +62,7 @@ window.onload = function() {
         var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 
         if (isIOS) {
+            elem.style.left = (width * (-1)) + "px";
             elem.animate([
                 { "-webkit-transform": 'translateX(' + width + 'px)'},
                 { "-webkit-transform": 'translateX(-300px)'}  
