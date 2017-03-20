@@ -56,6 +56,7 @@ window.onload = function() {
         elem.style.color = color[counter % color.length];
         elem.style.fontSize = "1.2rem";
         elem.style.position = "absolute";
+        elem.width.width = "auto";
         elem.style.top = (height / 10 * Math.random() * ( 9 - 0 )) + "px";
         elem.innerHTML = bulletContent;
        
@@ -77,7 +78,7 @@ window.onload = function() {
                 leftValue = width;
 
             setInterval(function() {
-                elem.style.left = leftValue + "px";
+                elem.style.webkitTransform  = 'translateX(' + leftValue + 'px)';
                 leftValue--;
                 if (leftValue <= -300) leftValue = width;
             }, width / duration)
