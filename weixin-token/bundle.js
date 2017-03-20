@@ -74,12 +74,12 @@ window.onload = function() {
             // })
 
             var duration = Math.random() * (maxDuration - minDuration) + maxDuration,
-                rightValue = width;
+                leftValue = width;
 
             setInterval(function() {
-                elem.style.right = rightValue + "px";
-                rightValue--;
-                if (rightValue <= -300) rightValue = width;
+                elem.style.left = leftValue + "px";
+                leftValue--;
+                if (leftValue <= -300) leftValue = width;
             }, width / duration)
         } else {
             elem.animate([
