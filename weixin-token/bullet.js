@@ -1,4 +1,5 @@
 var https = require('https');
+require('./web-animations.min.js');
 
 window.onload = function() {
 
