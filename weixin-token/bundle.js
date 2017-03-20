@@ -7186,9 +7186,7 @@ window.onload = function() {
         elem.style.position = "absolute";
         elem.style.top = (height / 10 * Math.random() * ( 9 - 0 )) + "px";
         elem.innerHTML = bulletContent;
-
-        screen.appendChild(elem);
-        
+       
         var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 
         if (isIOS) {
@@ -7209,6 +7207,8 @@ window.onload = function() {
             })
         }
 
+        screen.appendChild(elem);
+        
         // elem.animate([
         //     { 
         //         "-webkit-transform": "translateX(' + width + 'px)",
