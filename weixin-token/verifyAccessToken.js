@@ -2,7 +2,6 @@ var verify_info = require('./token.json'),
     fs = require('fs'),
     https = require('https'),
     resolve_func;
-
 queryAccessToken();
 
 exports.getAccessToken = function() {

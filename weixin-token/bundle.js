@@ -7189,45 +7189,45 @@ window.onload = function() {
 
         screen.appendChild(elem);
         
-        // var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+        var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 
-        // if (isIOS) {
-        //     elem.animate([
-        //         { "-webkit-transform": 'translateX(' + width + 'px)'},
-        //         { "-webkit-transform": 'translateX(-300px)'}  
-        //     ], {
-        //         duration: Math.random() * (maxDuration - minDuration) + maxDuration,
-        //         iterations: Infinity
-        //     })
-        // } else {
-        //     elem.animate([
-        //         { "transform": 'translateX(' + width + 'px)'},
-        //         { "transform": 'translateX(-300px)'}
-        //     ], {
-        //         duration: Math.random() * (maxDuration - minDuration) + maxDuration,
-        //         iterations: Infinity
-        //     })
-        // }
+        if (isIOS) {
+            elem.animate([
+                { "-webkit-transform": 'translateX(' + width + 'px)'},
+                { "-webkit-transform": 'translateX(-300px)'}  
+            ], {
+                duration: Math.random() * (maxDuration - minDuration) + maxDuration,
+                iterations: Infinity
+            })
+        } else {
+            elem.animate([
+                { "transform": 'translateX(' + width + 'px)'},
+                { "transform": 'translateX(-300px)'}
+            ], {
+                duration: Math.random() * (maxDuration - minDuration) + maxDuration,
+                iterations: Infinity
+            })
+        }
 
-        elem.animate([
-            { 
-                "-webkit-transform": "translateX(' + width + 'px)",
-                "-ms-transform": "translateX(' + width + 'px)",
-                "transform": "translateX(' + width + 'px)",
-                "-moz-transform": "translateX(' + width + 'px)",
-                "-o-transform": "translateX(' + width + 'px)"
-            },
-            { 
-                "-webkit-transform": "translateX(-300px)",
-                "-ms-transform": "translateX(-300px)",
-                "transform": "translateX(-300px)",
-                "-moz-transform": "translateX(-300px)",
-                "-o-transform": "translateX(-300px)"
-            }  
-        ], {
-            duration: Math.random() * (maxDuration - minDuration) + maxDuration,
-            iterations: Infinity
-        })
+        // elem.animate([
+        //     { 
+        //         "-webkit-transform": "translateX(' + width + 'px)",
+        //         "-ms-transform": "translateX(' + width + 'px)",
+        //         "transform": "translateX(' + width + 'px)",
+        //         "-moz-transform": "translateX(' + width + 'px)",
+        //         "-o-transform": "translateX(' + width + 'px)"
+        //     },
+        //     { 
+        //         "-webkit-transform": "translateX(-300px)",
+        //         "-ms-transform": "translateX(-300px)",
+        //         "transform": "translateX(-300px)",
+        //         "-moz-transform": "translateX(-300px)",
+        //         "-o-transform": "translateX(-300px)"
+        //     }  
+        // ], {
+        //     duration: Math.random() * (maxDuration - minDuration) + maxDuration,
+        //     iterations: Infinity
+        // })
 
         counter++;
     }
