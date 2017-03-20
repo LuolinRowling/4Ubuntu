@@ -2,7 +2,6 @@ var verify_info = require('./token.json'),
     fs = require('fs'),
     https = require('https'),
     resolve_func;
-queryAccessToken();
 
 exports.getAccessToken = function() {
     return new Promise(function(resolve, reject) {
@@ -22,17 +21,10 @@ function queryAccessToken() {
         appsecret = verify_info.appsecret,
         update_time = verify_info.update_time;
 
-    // var options = {
-    //     host: "api.weixin.qq.com",
-    //     port: 443,
-    //     path: "/cgi-bin/token?grant_type=client_credential&appid=" + appid + "&secret=" + appsecret,
-    //     method: "GET"
-    // }
-
     var options = {
         host: "api.weixin.qq.com",
         port: 443,
-        path: "/sns/oauth2/access_token?appid=" + appid + "&secret=" + appsecret + "&code=031erlV92bW5nP0HlEW92PJ1V92erlVK&grant_type=authorization_code",
+        path: "/cgi-bin/token?grant_type=client_credential&appid=" + appid + "&secret=" + appsecret,
         method: "GET"
     }
     
@@ -44,28 +36,28 @@ function queryAccessToken() {
         });
 
         res.on('end', function () {
-            console.log(responseText)
-            // if (JSON.parse(responseText)["access_token"] == undefined) {
-            //     var obj = {
-            //         appid: verify_info.appid,
-            //         appsecret: verify_info.appsecret,
-            //         access_token: "",
-            //         update_time: update_time
-            //     }
-            // } else {
-            //     var obj = {
-            //         appid: verify_info.appid,
-            //         appsecret: verify_info.appsecret,
-            //         access_token: JSON.parse(responseText)["access_token"],
-            //         update_time: Date.now()
-            //     }
-            // }
+            // console.log(responseText)
+            if (JSON.parse(responseText)["access_token"] == undefined) {
+                var obj = {
+                    appid: verify_info.appid,
+                    appsecret: verify_info.appsecret,
+                    access_token: "",
+                    update_time: update_time
+                }
+            } else {
+                var obj = {
+                    appid: verify_info.appid,
+                    appsecret: verify_info.appsecret,
+                    access_token: JSON.parse(responseText)["access_token"],
+                    update_time: Date.now()
+                }
+            }
 
-            // verify_info = obj;
+            verify_info = obj;
 
-            // fs.writeFile('./token.json', JSON.stringify(obj), function() {
-            //     resolve_func(verify_info);
-            // })
+            fs.writeFile('./token.json', JSON.stringify(obj), function() {
+                resolve_func(verify_info);
+            })
 
         });
     })
