@@ -113,7 +113,9 @@ window.onload = function() {
     document.getElementsByClassName('bullet-input')[0].addEventListener("keypress", pushBulletContentListener, false);
 
     var pushBulletContentListener = function(e) {
-
+        console.log("In the listener!");
+        console.log(e.type)
+        
         if (e.type != 'click' && e.type != 'keypress') return;
         if (e.type == 'keypress' && e.which != 13) return; 
 
