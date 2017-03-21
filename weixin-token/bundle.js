@@ -53,7 +53,7 @@ window.onload = function() {
     function pushBulletContent(bulletContent) {
         var elem = document.createElement("div");
 
-        elem.style.width = 2 * width;
+        elem.style.width = (2 * width) + "px";
         elem.style.color = color[counter % color.length];
         elem.style.fontSize = "1.2rem";
         elem.style.position = "absolute";
