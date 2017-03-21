@@ -6,7 +6,7 @@ window.onload = function() {
     // Get code
     var url = window.location.search;
 
-    localStorage.removeItem("nickname");
+    // localStorage.removeItem("nickname");
 
     if (url.split('?')[1].split('&').length < 2) return;
 
