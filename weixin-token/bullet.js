@@ -81,13 +81,25 @@ window.onload = function() {
                 if (leftValue <= -300) leftValue = width;
             }, width / duration)
         } else {
-            elem.animate([
-                { "transform": 'translateX(' + width + 'px)'},
-                { "transform": 'translateX(-300px)'}
-            ], {
-                duration: Math.random() * (maxDuration - minDuration) + maxDuration,
-                iterations: Infinity
-            })
+
+
+            var duration = Math.random() * (maxDuration - minDuration) + maxDuration,
+                leftValue = width;
+
+            setInterval(function() {
+                elem.style.left  = leftValue + "px";
+                leftValue--;
+                if (leftValue <= -300) leftValue = width;
+            }, width / duration)
+
+
+            // elem.animate([
+            //     { "transform": 'translateX(' + width + 'px)'},
+            //     { "transform": 'translateX(-300px)'}
+            // ], {
+            //     duration: Math.random() * (maxDuration - minDuration) + maxDuration,
+            //     iterations: Infinity
+            // })
         }
 
         screen.appendChild(elem);
@@ -121,7 +133,7 @@ window.onload = function() {
 
         if (bulletContent.length == 0) return;
 
-        if (localStorage.getItem("nickname") == null) {
+        if (localStorage.getItem("nickname") == null || localStorage.getItem("nickname") == "undefined") {
             pushBulletContent(bulletContent);
         } else {
             pushBulletContent(localStorage.getItem("nickname") + ": " + bulletContent);
@@ -137,7 +149,7 @@ window.onload = function() {
         
             if (bulletContent.length == 0) return;
 
-            if (localStorage.getItem("nickname") == null) {
+            if (localStorage.getItem("nickname") == null || localStorage.getItem("nickname") == "undefined") {
                 pushBulletContent(bulletContent);
             } else {
                 pushBulletContent(localStorage.getItem("nickname") + ": " + bulletContent);
