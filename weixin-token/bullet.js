@@ -52,7 +52,7 @@ window.onload = function() {
     function pushBulletContent(bulletContent) {
         var elem = document.createElement("div");
 
-        elem.style.width = (2 * width) + "px";
+        // elem.style.width = (2 * width) + "px";
         elem.style.color = color[counter % color.length];
         elem.style.fontSize = "1.2rem";
         elem.style.position = "absolute";
@@ -78,8 +78,8 @@ window.onload = function() {
                 leftValue = width;
 
             setInterval(function() {
-                // elem.style.webkitTransform  = "translateX(" + leftValue + "px)";
-                elem.style.left = leftValue + "px";
+                elem.style.webkitTransform  = "translateX(" + leftValue + "px)";
+                // elem.style.left = leftValue + "px";
                 leftValue--;
                 if (leftValue <= -300) leftValue = width;
             }, width / duration)
@@ -90,7 +90,8 @@ window.onload = function() {
                 leftValue = width;
 
             setInterval(function() {
-                elem.style.left  = leftValue + "px";
+                // elem.style.left  = leftValue + "px";
+                elem.style.transform = "translateX(" + leftValue + "px)";
                 leftValue--;
                 if (leftValue <= -300) leftValue = width;
             }, width / duration)
