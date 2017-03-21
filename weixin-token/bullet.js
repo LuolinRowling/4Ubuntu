@@ -56,7 +56,7 @@ window.onload = function() {
         elem.style.position = "absolute";
         // elem.style.float = "left";
         elem.style.top = (height / 10 * Math.random() * ( 9 - 0 )) + "px";
-        elem.style.left = width;
+        elem.style.left = width + "px";
         elem.innerHTML = bulletContent;
 
         var duration = Math.random() * (maxDuration - minDuration) + maxDuration,
