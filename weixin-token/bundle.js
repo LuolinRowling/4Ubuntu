@@ -79,7 +79,8 @@ window.onload = function() {
                 leftValue = width;
 
             setInterval(function() {
-                elem.style.webkitTransform  = "translateX(" + leftValue + "px)";
+                // elem.style.webkitTransform  = "translateX(" + leftValue + "px)";
+                elem.style.left = leftValue + "px";
                 leftValue--;
                 if (leftValue <= -300) leftValue = width;
             }, width / duration)
