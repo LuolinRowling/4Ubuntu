@@ -44,6 +44,8 @@ window.onload = function() {
 
     var screen = document.getElementsByClassName('bullet-content')[0];
 
+    screen.style.maxWidth = width + "px !important";
+
     for (var i = 0; i < bullet.length; i++) {
         pushBulletContent(bullet[i]);
     }
