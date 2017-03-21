@@ -56,6 +56,7 @@ window.onload = function() {
         elem.style.color = color[counter % color.length];
         elem.style.fontSize = "1.2rem";
         elem.style.position = "absolute";
+        elem.style.overflow = "hidden";
         elem.style.top = (height / 10 * Math.random() * ( 9 - 0 )) + "px";
         elem.innerHTML = bulletContent;
        
