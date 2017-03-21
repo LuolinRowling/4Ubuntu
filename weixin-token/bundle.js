@@ -6,8 +6,6 @@ window.onload = function() {
     // Get code
     var url = window.location.search;
 
-    // localStorage.removeItem("nickname");
-
     if (url.split('?')[1].split('&').length < 2) return;
 
     var code = url.split('?')[1].split('&')[0].split('=')[1];
@@ -53,116 +51,91 @@ window.onload = function() {
     function pushBulletContent(bulletContent) {
         var elem = document.createElement("div");
 
-        // elem.style.width = (2 * width) + "px";
+        elem.style.width = (4 * width) + "px";
         elem.style.color = color[counter % color.length];
         elem.style.fontSize = "1.2rem";
         elem.style.position = "absolute";
         elem.style.float = "left";
         elem.style.top = (height / 10 * Math.random() * ( 9 - 0 )) + "px";
         elem.innerHTML = bulletContent;
-       
-        var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 
-        // alert(isIOS);
+        var duration = Math.random() * (maxDuration - minDuration) + maxDuration,
+            leftValue = width;
 
-        if (isIOS) {
-            // elem.style.left = (width * (-1)) + "px";
-            // elem.animate([
-            //     { "-webkit-transform": 'translateX(' + width + 'px)'},
-            //     { "-webkit-transform": 'translateX(-300px)'}  
-            // ], {
-            //     duration: Math.random() * (maxDuration - minDuration) + maxDuration,
-            //     iterations: Infinity
-            // })
+        setInterval(function() {
+            // elem.style.webkitTransform  = "translateX(" + leftValue + "px)";
+            elem.style.left = leftValue + "px";
+            leftValue--;
+            if (leftValue <= -300) leftValue = width;
+        }, width / duration)        
 
-            var duration = Math.random() * (maxDuration - minDuration) + maxDuration,
-                leftValue = width;
+        // var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 
-            setInterval(function() {
-                elem.style.webkitTransform  = "translateX(" + leftValue + "px)";
-                // elem.style.left = leftValue + "px";
-                leftValue--;
-                if (leftValue <= -300) leftValue = width;
-            }, width / duration)
-        } else {
+        // if (isIOS) {
+        //     var duration = Math.random() * (maxDuration - minDuration) + maxDuration,
+        //         leftValue = width;
 
+        //     setInterval(function() {
+        //         // elem.style.webkitTransform  = "translateX(" + leftValue + "px)";
+        //         elem.style.left = leftValue + "px";
+        //         leftValue--;
+        //         if (leftValue <= -300) leftValue = width;
+        //     }, width / duration)
+        // } else {
 
-            var duration = Math.random() * (maxDuration - minDuration) + maxDuration,
-                leftValue = width;
+        //     var duration = Math.random() * (maxDuration - minDuration) + maxDuration,
+        //         leftValue = width;
 
-            setInterval(function() {
-                // elem.style.left  = leftValue + "px";
-                elem.style.transform = "translateX(" + leftValue + "px)";
-                leftValue--;
-                if (leftValue <= -300) leftValue = width;
-            }, width / duration)
+        //     setInterval(function() {
+        //         // elem.style.transform = "translateX(" + leftValue + "px)";
+        //         elem.style.left  = leftValue + "px";
+        //         leftValue--;
+        //         if (leftValue <= -300) leftValue = width;
+        //     }, width / duration)
 
-
-            // elem.animate([
-            //     { "transform": 'translateX(' + width + 'px)'},
-            //     { "transform": 'translateX(-300px)'}
-            // ], {
-            //     duration: Math.random() * (maxDuration - minDuration) + maxDuration,
-            //     iterations: Infinity
-            // })
-        }
+        //     // elem.animate([
+        //     //     { "transform": 'translateX(' + width + 'px)'},
+        //     //     { "transform": 'translateX(-300px)'}
+        //     // ], {
+        //     //     duration: Math.random() * (maxDuration - minDuration) + maxDuration,
+        //     //     iterations: Infinity
+        //     // })
+        // }
 
         screen.appendChild(elem);
         
-        // elem.animate([
-        //     { 
-        //         "-webkit-transform": "translateX(' + width + 'px)",
-        //         "-ms-transform": "translateX(' + width + 'px)",
-        //         "transform": "translateX(' + width + 'px)",
-        //         "-moz-transform": "translateX(' + width + 'px)",
-        //         "-o-transform": "translateX(' + width + 'px)"
-        //     },
-        //     { 
-        //         "-webkit-transform": "translateX(-300px)",
-        //         "-ms-transform": "translateX(-300px)",
-        //         "transform": "translateX(-300px)",
-        //         "-moz-transform": "translateX(-300px)",
-        //         "-o-transform": "translateX(-300px)"
-        //     }  
-        // ], {
-        //     duration: Math.random() * (maxDuration - minDuration) + maxDuration,
-        //     iterations: Infinity
-        // })
-
         counter++;
     }
 
     // Add click listener on submit button
-    document.getElementsByClassName('submit-btn')[0].addEventListener("click", function(e) {
-        var bulletContent = document.getElementsByClassName('bullet-input')[0].value;
+    document.getElementsByClassName('submit-btn')[0].addEventListener("click", pushBulletContentListener, false);
 
+    // Add keypress listener on input (check "Enter" press)
+    document.getElementsByClassName('bullet-input')[0].addEventListener("keypress", pushBulletContentListener, false);
+
+    var pushBulletContentListener = function(e) {
+
+        if (e.type != 'click' && e.type != 'keypress') return;
+        if (e.type == 'keypress' && e.which != 13) return; 
+
+        var bulletContent = document.getElementsByClassName('bullet-input')[0].value;
+    
         if (bulletContent.length == 0) return;
+
+        if (bulletContent.length > 50) {
+            alert("弹幕字数超出50个字！");
+            return;
+        }
 
         if (localStorage.getItem("nickname") == null || localStorage.getItem("nickname") == "undefined") {
             pushBulletContent(bulletContent);
         } else {
             pushBulletContent(localStorage.getItem("nickname") + ": " + bulletContent);
         }
-        
+
         document.getElementsByClassName('bullet-input')[0].value = "";
-    }, false);
-
-    // Add keypress listener on input (check "Enter" press)
-    document.getElementsByClassName('bullet-input')[0].addEventListener("keypress", function(e) {
-        if (e.which == 13) {
-            var bulletContent = document.getElementsByClassName('bullet-input')[0].value;
         
-            if (bulletContent.length == 0) return;
-
-            if (localStorage.getItem("nickname") == null || localStorage.getItem("nickname") == "undefined") {
-                pushBulletContent(bulletContent);
-            } else {
-                pushBulletContent(localStorage.getItem("nickname") + ": " + bulletContent);
-            }
-
-            document.getElementsByClassName('bullet-input')[0].value = "";
-        }
-    }, false);
+    }
     
 }
 },{"./web-animations.min.js":2}],2:[function(require,module,exports){
