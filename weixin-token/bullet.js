@@ -23,7 +23,7 @@ window.onload = function() {
         if (httpRequest.readyState === XMLHttpRequest.DONE) {
             if (httpRequest.status === 200) {
                 var response = JSON.parse(httpRequest.responseText);
-                localStorage.setItem("nickname", response.nickname);
+                if (response.nickname != undefined) localStorage.setItem("nickname", response.nickname);
             } else {
                 // alert('There was a problem with the request.');
             }
