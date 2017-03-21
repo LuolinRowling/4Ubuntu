@@ -56,6 +56,7 @@ window.onload = function() {
         elem.style.position = "absolute";
         elem.style.float = "left";
         elem.style.top = (height / 10 * Math.random() * ( 9 - 0 )) + "px";
+        elem.style.left = width;
         elem.innerHTML = bulletContent;
 
         var duration = Math.random() * (maxDuration - minDuration) + maxDuration,
@@ -107,8 +108,6 @@ window.onload = function() {
     }
 
     var pushBulletContentListener = function(e) {
-        console.log("In the listener!");
-        console.log(e.type)
 
         if (e.type != 'click' && e.type != 'keypress') return;
         if (e.type == 'keypress' && e.which != 13) return; 
