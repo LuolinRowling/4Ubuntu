@@ -106,16 +106,10 @@ window.onload = function() {
         counter++;
     }
 
-    // Add click listener on submit button
-    document.getElementsByClassName('submit-btn')[0].addEventListener("click", pushBulletContentListener, false);
-
-    // Add keypress listener on input (check "Enter" press)
-    document.getElementsByClassName('bullet-input')[0].addEventListener("keypress", pushBulletContentListener, false);
-
     var pushBulletContentListener = function(e) {
         console.log("In the listener!");
         console.log(e.type)
-        
+
         if (e.type != 'click' && e.type != 'keypress') return;
         if (e.type == 'keypress' && e.which != 13) return; 
 
@@ -138,4 +132,10 @@ window.onload = function() {
         
     }
     
+    // Add click listener on submit button
+    document.getElementsByClassName('submit-btn')[0].addEventListener("click", pushBulletContentListener, false);
+
+    // Add keypress listener on input (check "Enter" press)
+    document.getElementsByClassName('bullet-input')[0].addEventListener("keypress", pushBulletContentListener, false);
+
 }
