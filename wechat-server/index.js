@@ -21,7 +21,7 @@ app.all('*', function(req, res, next) {
 });
 
 app.get('/wechat/getUserName', function(req, res) {
-    console.log("/getUserName");
+    console.log("/wechat/getUserName");
 
 	var code = URL.parse(req.url, true).query.code;
 
@@ -66,6 +66,15 @@ app.get('/wechat/getUserName', function(req, res) {
 
 });
 
+app.post('/wechat/addBullet', function(req, res) {
+    console.log('/wechat/addBullet');
+
+
+    var username = req.body.username,
+        password = req.body.password;
+        
+    console.log('/')
+});
 
 app.listen(9999);
 console.log('Listening on port 9999...');

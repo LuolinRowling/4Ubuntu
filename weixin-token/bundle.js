@@ -55,7 +55,6 @@ window.onload = function() {
         elem.style.color = color[counter % color.length];
         elem.style.fontSize = "1.2rem";
         elem.style.position = "absolute";
-        // elem.style.float = "left";
         elem.style.top = (height / 10 * Math.random() * ( 9 - 0 )) + "px";
         elem.style.left = width + "px";
         elem.innerHTML = bulletContent;
@@ -68,7 +67,7 @@ window.onload = function() {
             elem.style.left = leftValue + "px";
             leftValue--;
             if (leftValue <= -300) leftValue = width;
-        }, width / duration)        
+        }, 2 * width / duration)        
 
         // var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 
