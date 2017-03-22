@@ -61,7 +61,7 @@ window.onload = function() {
 
         var duration = Math.random() * (maxDuration - minDuration) + maxDuration,
             leftValue = width;
-
+        console.log(width / duration);
         setInterval(function() {
             // elem.style.webkitTransform  = "translateX(" + leftValue + "px)";
             elem.style.left = leftValue + "px";
