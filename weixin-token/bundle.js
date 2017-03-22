@@ -38,8 +38,8 @@ window.onload = function() {
         bullet = ["Hello, World!"],
         counter = 0,
         color = ['#000', '#337ab7', '#5cb85c', '#5bc0de', '#f0ad4e', '#d9534f'],
-        maxDuration = 5000,
-        minDuration = 2000;
+        maxDuration = 8000,
+        minDuration = 5000;
 
     var screen = document.getElementsByClassName('bullet-content')[0];
 
@@ -67,7 +67,7 @@ window.onload = function() {
             elem.style.left = leftValue + "px";
             leftValue--;
             if (leftValue <= -300) leftValue = width;
-        }, 2 * width / duration)        
+        }, width / duration)        
 
         // var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 

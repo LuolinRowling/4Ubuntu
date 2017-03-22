@@ -70,7 +70,7 @@ app.post('/wechat/addBullet', function(req, res) {
     console.log('/wechat/addBullet');
 
 
-    var username = req.body.username,
+    var username = req.body.openid,
         password = req.body.password;
         
     console.log('/')
