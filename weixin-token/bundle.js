@@ -61,13 +61,13 @@ window.onload = function() {
 
         var duration = Math.random() * (maxDuration - minDuration) + maxDuration,
             leftValue = width;
-        console.log(width / duration);
+
         setInterval(function() {
             // elem.style.webkitTransform  = "translateX(" + leftValue + "px)";
             elem.style.left = leftValue + "px";
             leftValue--;
             if (leftValue <= -300) leftValue = width;
-        }, width / duration)        
+        }, 3 * width / duration)        
 
         // var isIOS = navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 
