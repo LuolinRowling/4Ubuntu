@@ -3,3 +3,6 @@ wechat-server/token.json
 
 weixin-token/node_modules
 wechat-server/node_modules
+
+cookie/node_modules
+E-Session/node_modules
