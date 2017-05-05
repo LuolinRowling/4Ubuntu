@@ -4,7 +4,9 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     uuid = require('uuid'),
     clone = require('clone');
+    MyFileStore = require('./FileStore.js')(session);
 
+// var FileStore = require('session-file-store')(session);
 
 var app = express();
 
@@ -15,32 +17,40 @@ var app = express();
 //     saveUninitialized: true
 // }));
 
-function my_session() {
-    var data = {};
-    return function(req, res, next) {
-        // 获取或生成id
-        var id = req.signedCookies.session_id || uuid.v4();
-        
-        // 配置cookie
-        res.cookie('session_id', id, {
-            maxAge: 600000,
-            path: '/',
-            httpOnly: true,
-            signed: true
-        });
+app.use(session({
+    secret: 'rowling',
+    store: new MyFileStore('./l_session')
+    // store: new FileStore()
+}))
 
-        // 获取session的值
-        req.session = clone(data[id] || {});
-        res.on('finish', function() {
-            console.log('save session: ', req.session);
-            data[id] = clone(req.session);
-        });
-        next();
-    }
-}
+
+
+// function my_session() {
+//     var data = {};
+//     return function(req, res, next) {
+//         // 获取或生成id
+//         var id = req.signedCookies.session_id || uuid.v4();
+        
+//         // 配置cookie
+//         res.cookie('session_id', id, {
+//             maxAge: 600000,
+//             path: '/',
+//             httpOnly: true,
+//             signed: true
+//         });
+
+//         // 获取session的值
+//         req.session = clone(data[id] || {});
+//         res.on('finish', function() {
+//             console.log('save session: ', req.session);
+//             data[id] = clone(req.session);
+//         });
+//         next();
+//     }
+// }
 
 app.use(cookieParser('helloworld'));
-app.use(my_session());
+// app.use(my_session());
 
 // 挂载中间件函数
 app.use(function(req, res, next) {

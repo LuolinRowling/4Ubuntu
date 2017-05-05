@@ -6,3 +6,5 @@ wechat-server/node_modules
 
 cookie/node_modules
 E-Session/node_modules
+E-Session/sessions
+E-Session/l_session
