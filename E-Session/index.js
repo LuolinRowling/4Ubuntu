@@ -76,5 +76,5 @@ app.get('/bar', function(req, res, next) {
     res.send('you viewed this page ' + req.session.views['/bar'] + " times");
 });
 
-app.listen(3000);
-console.log("Web server has started on http://127.0.0.1:3000");
+app.listen(8888);
+console.log("Web server has started on http://127.0.0.1:8888");
