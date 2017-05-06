@@ -120,6 +120,13 @@ module.exports = function(session) {
     /**
      * Recommended Method
      */
+
+    /**
+     * 检测session的状态
+     * @param {string} sid sessionId
+     * @param {object} session session对象实例
+     * @param {function} callback 回调函数
+     */
     
     FileStore.prototype.touch = function(sid, session, callback) {
         this.get(sid, session, function(err, originalSession) {
