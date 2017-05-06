@@ -122,7 +122,7 @@ module.exports = function(session) {
      */
 
     /**
-     * 检测session的状态
+     * 检测是否存在该session
      * @param {string} sid sessionId
      * @param {object} session session对象实例
      * @param {function} callback 回调函数
